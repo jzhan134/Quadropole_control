@@ -1,0 +1,6 @@
+The scripts should be ran with the following interfaces:
+	1. LoadParameters - includes all parameters for device connection, image analysis, and OP calculation
+	2. ConnectDevice - establish connection to function generator and camera. Only run once per reopen Matlab
+	3. RemoveParticles - start the devices and control the particle number to 300
+	4. SelfAssemblyControl - conduct the main body of the control.
+Other files are supporting scripts/functions for the above interfaces
