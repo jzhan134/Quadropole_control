@@ -1,3 +1,9 @@
+%{
+cnt: n-by-3 matrix with 
+    (1) particle index from 1 to pnum, 
+    (2) particle height from top
+    (3) particle width from left
+%}
 function cnt = TrackParticles(Window, thresh, psize)
 
 % old image filteration algorithm (alternative)
@@ -5,27 +11,14 @@ function cnt = TrackParticles(Window, thresh, psize)
 % pk = pkfnd(frametemp,thresh,11); % find pixels with brightness exceed threshold value
 % cnt = cntrd(frametemp,pk,15,0); % identify centers
 
-% identify all bright pixels, idx is the height from top, idy is width from left
+% identify all bright pixels
 [idx, idy] = find (Window > thresh);
-Window = double(Window);
+
 % Group bright pixels into particles by their relative locations
-cnt = []; % 2-by-n matrix with [x,y] coordinates in pixel for each column
+cnt = [];
 while (~isempty(idx))
     dist = sqrt((idx - idx(1)).^2 + (idy - idy(1)).^2);
     indice = find(dist <= psize);
-%     curr_x = idx(indice);
-%     curr_y = idy(indice);
-%     curr_bri = Window(curr_x,curr_y);
-%     mean_x = 0;
-%     mean_y = 0;
-%     for i = 1:size(curr_bri,2)
-%         mean_x = mean_x + sum(curr_bri(:,i).*curr_x);
-%     end
-%     for i = 1:size(curr_bri,1)
-%         mean_y = mean_y + sum(curr_bri(i,:).*curr_y');
-%     end
-%     mean_x = mean_x/sum(sum(curr_bri));
-%     mean_y = mean_y/sum(sum(curr_bri));
     cnt = cat(2, cnt, [mean(idx(indice)); mean(idy(indice))]);
     idx(indice) = [];
     idy(indice) = [];
@@ -42,5 +35,6 @@ for i = 1:size(cnt,2)
 end
 cnt(:,remove_list) = [];
 
+% reorganize output data structure
 cnt = [1:size(cnt,2);cnt]';
 end

@@ -1,3 +1,7 @@
+%{
+    This function applies commands to single/double channel function generator
+    For single channel FG, the freq1 and volt1 are the applying field conditions
+%}
 function ControlFG(opt_device,freq1, freq2, volt1, volt2)
 if opt_device == 1
     fprintf(inst,'source:function sin');

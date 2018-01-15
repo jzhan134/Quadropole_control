@@ -1,4 +1,6 @@
-set(0,'DefaultFigureWindowStyle','docked')
+set(0,'DefaultFigureWindowStyle','docked');
+warning off;
+addpath('/home/aledonbde/Desktop/Image_Analysis');
 
 % adjustable parameters
 obj = 63;       % Objective magnification

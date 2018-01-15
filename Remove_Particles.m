@@ -1,11 +1,11 @@
 function Remove_Particles(opt_device, camera, thresh, psize)
-% initialize default field condition and focus the camera
-ControlFG(opt_device,1e6,1e6,1.5,1.5);
+
+% center the camera
 preview(camera)
 input('Press ENTER focus on the center of the quadrupole');
 stoppreview(camera)
 
-% Control number of particles in the field to 300
+% Control number of particles
 opt_prompt = strcat('Choose a control options:',...
     '\n    (1) Positive DEP',...
     '\n    (2) Negative DEP',...
@@ -16,20 +16,20 @@ while true
     if (opt == 0)
         break;
     elseif (opt == 1)
+        figure(1)
         ControlFG(opt_device,1e3,1e3,1.5,1.5);
     elseif (opt == 2)
+        figure(1)
         ControlFG(opt_device,1e6,1e6,1.5,1.5);
     elseif (opt == 3)
         Window = getsnapshot(camera);
-        [cnt, pnum] = TrackParticles(Window, thresh, psize);
+        cnt = TrackParticles(Window(:,:,1), thresh, psize);
         figure(2)
-        warning off;
         imshow(Window)
         hold on
-        plot(cnt(:,2),cnt(:,1),'rx')
+        plot(cnt(:,3),cnt(:,2),'rx') 
         hold off
-        fprintf('Total particle number: %d\n',pnum);
-        figure(1)
+        fprintf('Total particle number: %d\n',size(cnt,1));
     end
 end
 close(figure(2));

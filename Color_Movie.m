@@ -3,7 +3,7 @@ clc
 clf
 warning off
 close all
-addpath('/home/aledonbde/Desktop/QUADRUPOLE_SELF_ASSEMBLY_CONTROL/Image_Analysis');
+addpath('/home/aledonbde/Desktop/Image_Analysis');
 Color_code = [0,0,255;  255 0 0; 0 255 0;0 128 0; 0 192 0];
 color = Color_code./255;
 
